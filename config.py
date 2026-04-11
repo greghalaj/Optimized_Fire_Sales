@@ -31,10 +31,15 @@ NUMBER_OF_ASSETS = 40
 #dynamics of responses
 RESPONSEMODE = 1 #0: independently, i.e., loop for all banks and only after update y, 1: synchronously, i.e., update y after each bank's response; 2: randomly, i.e., update y after each bank's response but in random order
 
+IFPROPORTIONALSELLING = 0 # 1: proportional selling, 0: optimized
+IFINTERNALISE = 1 # 1: strategic, 0: banks decide about how and what to transact irrespective of the peers
+
 NTATONNEMENT = 100 #number of iterations to run the system to reach equilibrium in tatonnement steps, e.g., 100
 
 #set a linear price impact function by choosing the impact (in bps) of how much the price would change in case of selling of 1% of the total volume of securities 
 PRICE_IMPACT_PER_PRTC_SOLD = 20# in basis points
+
+NSIM_Z = 2 #number of parameterisation of the shocks to funding sources (in this way, on can run on a grid of shocks to see the sensitivity of the results to the shock structure)
 
 #in basis points, list impact for assets 0 to NUMBER_OF_ASSETS
 PRICE_IMPACT_FUNCTION = {1:50,5:40,3:60} 

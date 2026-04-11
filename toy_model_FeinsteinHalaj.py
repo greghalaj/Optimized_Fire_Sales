@@ -37,7 +37,8 @@ RUNOFFRATE = 1.0
 
 IFSIMULATED = 1 # data will be generated in a cell below, ignoring input from files (taken care of in this cell);
 
-IFPROPORTIONALSELLING = 0 # 1: proportional selling, 0: strategic
+IFPROPORTIONALSELLING = config.IFPROPORTIONALSELLING # no strategic selling, just proportional, like in Greenwood
+IFINTERNALISE = config.IFINTERNALISE
 
 Ntatonn = config.NTATONNEMENT
 
@@ -52,6 +53,8 @@ PRIMPACTPRCT = config.PRICE_IMPACT_PER_PRTC_SOLD
 PRICEIMPACTFUNCTION = config.PRICE_IMPACT_FUNCTION
 
 SHOCK_SIZE = config.SHOCK_SIZE/10**2
+
+NSIM_Z = config.NSIM_Z # how many versions of how to set z (external liabilities to be paid back)
 
 THRESHOLD_BIPARTITE = config.THRESHOLD_BIPARTITE
 
@@ -377,7 +380,6 @@ IFPARALLEL = 0
 IFTESTCALIB = 0
 IFCALIBBETAGAMMA = 1 #0: only gamma is calibrated
 IFOVERWRITEX = 0
-IFINTERNALISE = 1
 IFTMIN2TOL = 0 #stop convergence when \|y_{t-2}-y_t\|<tol
 STOPMIN2TOL = 0.001
 
@@ -458,9 +460,6 @@ for xtenum,xtols in enumerate(tolandstep):
     ycb_tatonn_min = list()
     zl_list = list() #slack in the linear constraint of the central bank
     q_list = list()
-
-    Ntatonn = 50 # 400 #how many steps in tattonement?
-    NSIM_Z = 2 # how many versions of how to set z (external liabilities to be paid back)
     
     gamma_start = 2.0 # starting multiplier of gamma
     gamma_step = 0.0 #in baseline case set it to 0
@@ -503,7 +502,7 @@ for xtenum,xtols in enumerate(tolandstep):
         xcntr_list = [y for y,x in enumerate(xoptim_params['nodes']) if x in SHOCKEDBANKS]
 
         zstep = np.asarray(x.shape[0]*[0.0])
-        for iz in xcntr_list: #UNICRED
+        for iz in xcntr_list: 
             zstep[iz] = SHOCK_SIZE
 
         
