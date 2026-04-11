@@ -5,7 +5,7 @@ Based on a model of Feinstein and [Halaj (JEDC, 2023)](https://doi.org/10.1016/j
 
 A simulation framework for studying **fire-sale contagion and liquidity stress propagation** in an interbank system with overlapping asset portfolios. Banks respond strategically (or proportionally) to funding shocks by selling securities, causing price impacts that spill over to other banks.
 
-The model draws on the framework developed by Grzegorz Halaj and Sveinn Feinstein. The interbank network generation follows [Halaj & Kok (2013), *Computational Management Science*](https://doi.org/10.1007/s10287-013-0168-4).
+The model draws on the framework developed by Grzegorz Halaj and Zach Feinstein. The interbank network generation follows [Halaj & Kok (2013), *Computational Management Science*](https://doi.org/10.1007/s10287-013-0168-4).
 
 ---
 
@@ -33,13 +33,13 @@ Central configuration file. All key model parameters are defined here, so users 
 | `SHOCKED_BANKS` | List of bank identifiers that receive the funding shock |
 | `SHOCK_SIZE` | Percentage of unsecured funding that runs off (default: 20%) |
 | `NSIM_Z` | How many versions of how to set z (external liabilities to be paid back) (default: 2) |
-| `PRICE_IMPACT_PER_PRTC_SOLD` | Linear price impact in basis points per 1% of volume sold, which means by how many bps prices of a given security class changes if 1% of the total volume (summing up across all financial insititutions) of those securities is liquidated (default: 20 bps) |
+| `PRICE_IMPACT_PER_PRTC_SOLD` | Linear price impact in basis points per 1% of volume sold, which means by how many bps prices of a given security class changes if 1% of the total volume of these securities, summing up across all financial insititutions, is liquidated (default: 20 bps) |
 | `PRICE_IMPACT_FUNCTION` | Asset-specific price impact overrides (dictionary: asset index → bps) |
 | `NTATONNEMENT` | Number of tâtonnement iterations to reach equilibrium (default: 100) |
 | `IFINTERNALISE` | 1: strategic, 0: banks decide about how and what to transact irrespective of the peers (default: 1) |
 | `IFPROPORTIONALSELLING` | 1: proportional selling, 0: optimized using Feinstein and Halaj model (default: 0) |
 | `RESPONSEMODE` | Bank response ordering: `0` = independent (i.e., in each round of the totannement, each bank transacts independently of other banks; in other words, they transact in parallel and only after the prices of the aggregated selling/ buying reacts), `1` = synchronous (i.e., banks in a preselected order, from 0 to $N-1$, transact and in each round of the tanonnement, each bank considers impact of transactions of all banks that already transacted in this round, `2` = random (similar to 1, but the order of transacting is randomised (permutation of $[0,...,N-1]$) |
-| `IFCENTRALBANK` | Central bank intervention toggle: `0` = passive, `1` = active, i.e., the regulator purchasing securites sold by the banks to stabilize the prices |
+| `IFCENTRALBANK` | Central bank intervention toggle: `0` = passive, i.e., absence of a regulator, `1` = active, i.e., the regulator purchasing securites sold by the banks to stabilize the prices |
 | `CREATESTABLESYSTEM` | Generate and save a stable (pre-shock equilibrium) system (`1`) or use a freshly simulated one (`0`) |
 | `IF_LOAD_FROM_PICKLE` | Load a previously saved stable system from disk (`1`) or simulate fresh (`0`) |
 | `IFSTARTFROMSTEADY` | Start the shock experiment from the steady state (`1`) |
@@ -58,14 +58,14 @@ Library of auxiliary mathematical functions and solvers used by the main simulat
 - **`convertDictNumpyToPd`** / **`convertDictNumpyToPdWithKeysCols`** — Convert dictionaries of NumPy arrays into multi-indexed pandas DataFrames.
 - **`convertDictNumpyToPd_sim`** / **`convertDictNumpyToPdWithKeysCols_sim`** — Same as above but indexed into a simulation sub-dictionary.
 
-#### Portfolio Overlap Generation
+#### Portfolio Overlap Metrics and Generation of Portfolios approx. with a Given Similarity 
 - **`funCosine`** — Computes the cosine similarity between two portfolio vectors.
 - **`funPorfCosineSimilarity`** — Constructs a pairwise cosine similarity matrix across all banks' portfolios.
 - **`funVecCosineSim`** — Generates a random non-negative vector with a prescribed cosine similarity to a reference vector.
 - **`funOverlapPortfoliosV3`** — Generates overlapping bank portfolios by sampling from a uniform distribution and normalising, producing a bank × asset holdings matrix.
 
 #### Interbank Network Generation
-- **`mLendIBank`** — Simulates the interbank lending network following the Halaj & Kok (2013) algorithm. Uses a geographic proximity matrix to probabilistically assign bilateral exposures between borrowers and lenders, subject to capacity constraints.
+- **`mLendIBank`** — Simulates the interbank lending network following the Halaj & Kok (2013) algorithm. Uses a probability map  (e.g., a matrix capturing similarity in geographical presence of the banks) to probabilistically assign bilateral exposures between borrowers and lenders, subject to capacity constraints.
 
 #### Price and Clearing Functions
 - **`f`** / **`flin`** — Exponential and linear asset price impact functions. `flin` computes asset prices as a function of initial holdings `x` and current retained holdings `y`, with a linear price-impact coefficient `b`.
@@ -77,7 +77,7 @@ Library of auxiliary mathematical functions and solvers used by the main simulat
 
 #### Visualisation & I/O
 - **`fun_bipirtite`** — Constructs a NetworkX bipartite graph linking banks to the assets they hold above a threshold.
-- **`load_system_unpickled`** — Loads a pre-saved system state from a pickle file.
+- **`load_system_unpickled`** — Loads a pre-saved system of banks (i.e., their balance sheets, with risk and return parameters, interbank lending matrix, etc.) from a pickle file.
 
 ---
 
