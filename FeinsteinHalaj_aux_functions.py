@@ -441,7 +441,8 @@ def best_response(xo_params,y): #for bank i
 
 def load_system_unpickled(FPATH,period):
     import pickle
-    balance_sheet_file = open(FPATH+'balance_sheet_stable_system_'+period, 'rb')
+    file_stable = 'balance_sheet_stable_system_' + period
+    balance_sheet_file = open(FPATH / file_stable, 'rb')
     optim_dict_to_load = pickle.load(balance_sheet_file)
     balance_sheet_file.close()
     return optim_dict_to_load

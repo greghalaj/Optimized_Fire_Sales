@@ -19,6 +19,7 @@ import chardet
 import datetime
 from scipy.stats import ortho_group
 import pickle
+from pathlib import Path
 
 from FeinsteinHalaj_aux_functions import *
 import config
@@ -79,9 +80,14 @@ EXPO = 0.4 #decay parameter in the step of the totannement
 
 IF_TURNOFF_ITER_STATS = config.IF_TURNOFF_ITER_STATS
 
-#FPATH = 'P:\\ECB business areas\\SSM-DGHOL\\STE\\Greg\\Contagion codes\\'
-FPATH = 'J:\\STE\\Research\\Contagion\\output\\'
-FPATHOUTPUT = FPATH+'output\\'
+# Folder where this .py file lives
+FPATH = Path(__file__).resolve().parent
+FPATHOUTPUT = FPATH / 'output'
+
+# Check if subfolder exists; create it if it doesn't
+if not FPATHOUTPUT.exists():
+    FPATHOUTPUT.mkdir(parents=True)
+    print("Created subfolder:", FPATHOUTPUT)
 
 RUNOFFRATE = 1.0
     
@@ -281,12 +287,12 @@ if IFSIMULATED == 1 and IF_LOAD_FROM_PICKLE == 1:
 
 
 if IFSAVEEXAMPLE==1:
-    balance_sheet_file = open(FPATH+'balance_sheet_example','wb')
+    balance_sheet_file = open(FPATH / 'balance_sheet_example','wb')
     pickle.dump(optim_net_ts_dict,balance_sheet_file)
     balance_sheet_file.close()
     
 if IFLOADEXAMPLE==1:
-    with open(FPATH+"balance_sheet_example", "rb") as f:
+    with open(FPATH / "balance_sheet_example", "rb") as f:
         optim_net_ts_dict = pickle.load(f)    
     
 # table with statistics
@@ -922,7 +928,8 @@ for xtenum,xtols in enumerate(tolandstep):
                 optim_dict_to_save_dict['xx_vec'] = y_k.copy()
                 optim_dict_to_save_dict['q0_vec'] = q_k.copy()
                 #optim_dict_to_save_dict['cc_vec'] = c_k.copy()
-                balance_sheet_file = open(FPATH+'balance_sheet_stable_system_'+period, 'wb')
+                file_stable = 'balance_sheet_stable_system_'+period
+                balance_sheet_file = open(FPATH / file_stable, 'wb')
                 pickle.dump(optim_dict_to_save_dict, balance_sheet_file)
                 balance_sheet_file.close()
                 print('stable system created for period '+period+'!')
@@ -1032,8 +1039,13 @@ if today_m<10:
     today_m = '0'+str(today_m)
 today_y = datetime.datetime.now().year
 
-convertDictNumpyToPd(q_ts).to_excel(FPATH+'q_ts_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx')
-convertDictNumpyToPd(p_ts).to_excel(FPATH+'p_ts_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx')
-convertDictNumpyToPdWithKeysCols(x_collect,bank_names).to_excel(FPATH+'x_collect_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx')
-convertDictNumpyToPdWithKeysCols_sim(y_collect,'sim0',bank_names).to_excel(FPATH+'y_collect_sim0_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx')
-convertDictNumpyToPdWithKeysCols_sim(y_collect,'sim1',bank_names).to_excel(FPATH+'y_collect_sim1_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx')
+xfile = 'q_ts_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx'
+convertDictNumpyToPd(q_ts).to_excel(FPATHOUTPUT / xfile)
+xfile = 'p_ts_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx'
+convertDictNumpyToPd(p_ts).to_excel(FPATHOUTPUT / xfile)
+xfile = 'x_collect_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx'
+convertDictNumpyToPdWithKeysCols(x_collect,bank_names).to_excel(FPATHOUTPUT / xfile)
+xfile = 'y_collect_sim0_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx'
+convertDictNumpyToPdWithKeysCols_sim(y_collect,'sim0',bank_names).to_excel(FPATHOUTPUT / xfile)
+xfile = 'y_collect_sim1_'+FILEALIAS+'_'+str(today_y)+str(today_m)+str(today_d)+'.xlsx'
+convertDictNumpyToPdWithKeysCols_sim(y_collect,'sim1',bank_names).to_excel(FPATHOUTPUT / xfile)
