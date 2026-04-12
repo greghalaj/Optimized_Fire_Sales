@@ -123,12 +123,11 @@ The main simulation script. Reads parameters from `config.py`, calls functions f
 - `cvxpy` (with the CLARABEL solver)
 - `matplotlib`
 - `scipy`
-- `chardet`
 - `pickle` (standard library)
 
 Install Python dependencies with:
 ```bash
-pip install numpy pandas networkx cvxpy matplotlib scipy chardet
+pip install numpy pandas networkx cvxpy matplotlib scipy
 ```
 
 ---
@@ -144,7 +143,7 @@ pip install numpy pandas networkx cvxpy matplotlib scipy chardet
 
 ---
 
-# Example of a setup
+# Example of a use case
 - Objective: create a banking system (semi-randomly), shock a subset of banks with a given shock to funding sources, analyse the optimal responses of banks raising cash to meet the obligations related to the funding shock and collect information about the price dynamics and changes in securities holding
 - CREATESTABLESYSTEM:=1 -- force the code to create a stable, set IFPROPORTIONALSELLING:=0 (i.e., use Feinstein and Halaj model of how banks optimally transact to raise cash, instead of miopic proportional selling, like in Greenwood model) and IFINTERNALISE:=1 (to follow Feinstein and Halaj model of strategic interactions of banks)
 - run the main script (pickled file "balance_sheet_stable_system"+period with the banking system is created)
