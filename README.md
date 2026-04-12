@@ -1,9 +1,9 @@
 # Optimized_Fire_Sales
-Based on a model of Feinstein and [Halaj (JEDC, 2023)](https://doi.org/10.1016/j.jedc.2023.104734), this code allows to run simulations of how price-mediated contagion arises when banks respond to funding shocks by selling securities to raise cash. They choose securities by solving an optimal portfolio program.
+Based on a model of Feinstein and [Halaj (JEDC, 2023)](https://doi.org/10.1016/j.jedc.2023.104734), this code allows a user to run simulations of how price-mediated contagion arises when banks respond to funding shocks by selling securities to raise cash. They choose securities by solving an optimal portfolio program.
 
-# Financial Contagion Toy Model (Feinstein–Halaj)
+# Fire-Sale-Driven Financial Contagion Model (Feinstein–Halaj)
 
-A simulation framework for studying **fire-sale contagion and liquidity stress propagation** in an interbank system with overlapping asset portfolios. Banks respond strategically (or proportionally) to funding shocks by selling securities, causing price impacts that spill over to other banks.
+The python code repository is an implementation of a simulation framework for studying **fire-sale contagion and liquidity stress propagation** in an interbank system with overlapping asset portfolios. Banks respond strategically (or proportionally) to funding shocks by selling securities, causing price impacts that spill over to other banks.
 
 The model draws on the framework developed by Grzegorz Halaj and Zach Feinstein. The interbank network generation follows [Halaj & Kok (2013), *Computational Management Science*](https://doi.org/10.1007/s10287-013-0168-4).
 
