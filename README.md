@@ -34,7 +34,7 @@ Central configuration file. All key model parameters are defined here, so users 
 | `SHOCK_SIZE` | Percentage of unsecured funding that runs off (default: 20%) |
 | `NSIM_Z` | How many versions of how to set z (external liabilities to be paid back) (default: 2) |
 | `PRICE_IMPACT_PER_PRTC_SOLD` | Linear price impact in basis points per 1% of volume sold, which means by how many bps prices of a given security class changes if 1% of the total volume of these securities, summing up across all financial insititutions, is liquidated (default: 20 bps) |
-| `PRICE_IMPACT_FUNCTION` | Asset-specific price impact overrides (dictionary: asset index → bps) |
+| `PRICE_IMPACT_FUNCTION` | Asset-specific price impact parameters, assuming impact linear to the aggregated transacted volumes (default: 20 bps) |
 | `NTATONNEMENT` | Number of tâtonnement iterations to reach equilibrium (default: 100) |
 | `IFINTERNALISE` | 1: strategic, 0: banks decide about how and what to transact irrespective of the peers (default: 1) |
 | `IFPROPORTIONALSELLING` | 1: proportional selling, 0: optimized using Feinstein and Halaj model (default: 0) |
