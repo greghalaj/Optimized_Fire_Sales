@@ -13,14 +13,15 @@ THRESHOLD_BIPARTITE = 10.0 #threshold set for drawing edges of the bank-asset ne
 ### the next toggle allows a user to create a system that is stable, ie absent a shock the optimum is near the observed starting point structure.
 #It is a useful feature to control the experiments,otherwise, it might be challenging to disentangle the effects of the shock and the rebalancing related to unstable (not in equilibrium) system. Toggle set to 1 might be necessary for comparative statics
 CREATESTABLESYSTEM = 0 #create a stable system and save it in the selected location (1) or not, i.e., use the simulated one (0) 
+IF_SAVEEXAMPLE = 1 # 1: save system created with CREATESTABLESYSTEM:=1 (set to 1 if CREATESTABLESYSTEM==1); 0: do not save stable system
 
 IFSTARTFROMSTEADY = 0 # start at steady state of no shock case
 
 NRUNSTOSTABILIZE = 50 #number of runs to stabilize the system before the shock is applied, e.g., 20
 
 EXAMPLE_FILE = 'blance_sheet_example'
-IF_LOAD_EXAMPLE = 0 #load the example file from EXAMPLE_FILE (1) or not (0); if 1, the file should be in the selected location; if 0, the system will be simulated with the parameters set below
-IF_LOAD_FROM_PICKLE = 1 #load the system from a pickle file (1) or not (0); if 1, the file should have been created with CREATESTABLESYSTEM=1 and saved in the selected location; if 0, the system will be simulated with the parameters set below
+#IF_LOAD_EXAMPLE = 1 #load the example file from EXAMPLE_FILE (1) or not (0); if 1, the file should be in the selected location; if 0, the system will be simulated with the parameters set below
+IF_LOAD_FROM_PICKLE = 0 #load the system from a pickle file (1) or not (0); if 1, the file should have been created with CREATESTABLESYSTEM=1 and saved in the selected location; if 0, the system will be simulated with the parameters set below
 
 #set the number of banks in the system, e.g., 100
 NUMBER_OF_BANKS = 20
