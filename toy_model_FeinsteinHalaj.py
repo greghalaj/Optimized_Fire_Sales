@@ -24,14 +24,13 @@ from pathlib import Path
 from FeinsteinHalaj_aux_functions import *
 import config
 
-
 COLORSkyBlue = (133/255, 195/255, 236/255)
 COLORPastelOrange = (255/255, 179/255, 71/255)
 COLORCrayolasOrangeRed = (255/255, 83/255, 72/255)
 COLORTropicalRainForest = (23/255, 128/255, 109/255)
-IFSAVEEXAMPLE = 0
 
-IFLOADEXAMPLE = config.IF_LOAD_EXAMPLE
+#IFLOADEXAMPLE = config.IF_LOAD_EXAMPLE
+IF_LOAD_FROM_PICKLE = config.IF_LOAD_FROM_PICKLE
 
 RUNOFFRATE = 1.0  
 
@@ -61,9 +60,9 @@ THRESHOLD_BIPARTITE = config.THRESHOLD_BIPARTITE
 RESPONSEMODE = config.RESPONSEMODE
 
 CREATESTABLESYSTEM = config.CREATESTABLESYSTEM
+IFSAVEEXAMPLE = config.IF_SAVEEXAMPLE*CREATESTABLESYSTEM #activated if CREATESTABLESYSTEM set to 1
 IFSTARTFROMSTEADY = config.IFSTARTFROMSTEADY
 NRUNSTOSTABILIZE = config.NRUNSTOSTABILIZE
-IF_LOAD_FROM_PICKLE = config.IF_LOAD_FROM_PICKLE
 
 IFCBONLYPURCHASE = 0 # 2: small selling is allowed
 CBLOWERBOUND = 0.01
@@ -294,7 +293,7 @@ if IFSAVEEXAMPLE==1:
     pickle.dump(optim_net_ts_dict,balance_sheet_file)
     balance_sheet_file.close()
     
-if IFLOADEXAMPLE==1:
+if IF_LOAD_FROM_PICKLE==1:
     with open(FPATH / "balance_sheet_example", "rb") as f:
         optim_net_ts_dict = pickle.load(f)    
     
