@@ -355,7 +355,7 @@ statstable.index = funStats(degree_mean_stat)[1]
 
 ## draw bipartite
 if IF_DRAW_BIPARTITE == 1:
-    xn = fun_bipirtite(bank_names, list(range(0,M)), x, THRESHOLD_BIPARTITE)
+    xn = fun_bipirtite(bank_names, list(range(0,M)), optim_net_ts_dict[xdata[0]]['xx_vec'],THRESHOLD_BIPARTITE)
     pos = nx.bipartite_layout(xn,nodes=bank_names)
     fig, ax = plt.subplots()
     nx.draw(xn, pos=pos, ax=ax, with_labels=True)
